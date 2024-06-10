@@ -1,6 +1,7 @@
 package com.learning.bankingsystem.security;
 
 import com.learning.bankingsystem.entity.PasswordStatus;
+import com.learning.bankingsystem.entity.PasswordType;
 import com.learning.bankingsystem.repository.PasswordRepository;
 import com.learning.bankingsystem.repository.UserRepository;
 import com.learning.bankingsystem.repository.UserRoleRepository;
@@ -28,10 +29,10 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         var user = userRepository.findByEmail(email);
-        if(user == null) {
+        if (user == null) {
             throw new UsernameNotFoundException("User not found with email: " + email);
         }
-        var userPassword = passwordRepository.findByUser_UuidAndStatus(user.getUuid(), PasswordStatus.ACTIVE);
+        var userPassword = passwordRepository.findByUser_UuidAndTypeAndStatus(user.getUuid(), PasswordType.LOGIN_PASSWORD, PasswordStatus.ACTIVE);
         if (userPassword == null) {
             throw new UsernameNotFoundException("Password not found for user: " + email);
         }

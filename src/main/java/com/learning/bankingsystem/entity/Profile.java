@@ -19,7 +19,8 @@ import java.util.UUID;
 @NoArgsConstructor
 @Builder
 @Entity
-public class Password {
+public class Profile {
+
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
@@ -27,23 +28,20 @@ public class Password {
     @Column(columnDefinition = "varchar(36)", updatable = false, nullable = false)
     private UUID uuid;
 
-    @ManyToOne
-    @JoinColumn(name = "user_uuid")
+    @OneToOne
+    @JoinColumn(name = "user_id")
     private User user;
 
-    @Column(name = "password", nullable = false)
-    private String password;
-
-    @Column(name = "type", nullable = false)
+    @Column(name = "profile_status", nullable = false)
     @Enumerated(EnumType.STRING)
-    private PasswordType type;
+    private ProfileStatus profileStatus;
 
-    @Column(name = "invalid_password_entry_count")
-    private int invalidPasswordEntryCount;
-
-    @Column(name = "status", nullable = false)
+    @Column(name = "admin_action_type", nullable = false)
     @Enumerated(EnumType.STRING)
-    private PasswordStatus status;
+    private AdminActionType adminActionType;
+
+    @Column(name = "admin_comments")
+    private String comments;
 
     @CreationTimestamp
     @Column(name = "created_time", nullable = false, updatable = false)

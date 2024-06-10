@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Register</title>
+    <title>Account Opening Form</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <style>
@@ -30,7 +30,7 @@
 </head>
 <body>
 <div class="container">
-    <h2>Register</h2>
+    <h2>Open A Saving Account</h2>
     <form id="registerForm">
         <div class="form-section">
             <div class="form-group">
@@ -216,35 +216,14 @@
                     }).then(() => {
                         window.location.href = '/api/user/login';
                     });
-                }else {
+                } else {
                     Swal.fire({
                         icon: 'error',
-                        title: data.error.code,
-                        text: data.error.message,
+                        title: response.error.code,
+                        text: response.error.message,
                     });
                 }
             })
-            // .then(data => {
-            //     if (data.success) {
-            //         console.log('Registration successful:', data);
-            //         Swal.fire({
-            //             icon: 'success',
-            //             title: 'Registration successful',
-            //             text: 'You have registered successfully!',
-            //             timer: 2000,
-            //             timerProgressBar: true,
-            //             showConfirmButton: false
-            //         }).then(() => {
-            //             window.location.href = '/api/user/login';
-            //         });
-            //     } else {
-            //         Swal.fire({
-            //             icon: 'error',
-            //             title: data.error.code,
-            //             text: data.error.message,
-            //         });
-            //     }
-            // })
             .catch(error => {
                 console.error('Error during registration:', error);
                 Swal.fire({

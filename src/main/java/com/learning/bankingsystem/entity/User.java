@@ -63,10 +63,6 @@ public class User {
     @Temporal(TemporalType.DATE)
     private Date dateOfBirth;
 
-    @Column(name = "profile_status", nullable = false)
-    @Enumerated(EnumType.STRING)
-    private ProfileStatus profileStatus;
-
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonIgnoreProperties("user")
     @JsonIgnore
@@ -82,6 +78,11 @@ public class User {
     @JsonIgnore
     private List<Password> passwords;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonIgnoreProperties("user")
+    @JsonIgnore
+    private List<Otp> otps;
+
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonIgnoreProperties("user")
     @JsonIgnore
@@ -94,4 +95,23 @@ public class User {
     @Column(name = "updated_time", nullable = false)
     @UpdateTimestamp
     private Instant updatedTime;
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "uuid=" + uuid +
+                ", title=" + title +
+                ", firstName='" + firstName + '\'' +
+                ", middleName='" + middleName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", fatherName='" + fatherName + '\'' +
+                ", accountNumber='" + accountNumber + '\'' +
+                ", mobileNumber='" + mobileNumber + '\'' +
+                ", email='" + email + '\'' +
+                ", aadharNumber='" + aadharNumber + '\'' +
+                ", dateOfBirth=" + dateOfBirth +
+                ", createdTime=" + createdTime +
+                ", updatedTime=" + updatedTime +
+                '}';
+    }
 }
